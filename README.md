@@ -39,3 +39,17 @@ Docker Desktop 설치하면 자동으로 설치 된다는 썰이 있다, 나중�
 `docker rmi openjdk` - 이미지를 삭제함(이미지명 말고 IMAGE ID로도 삭제 가능함)<br/>
 `docker stop [CONTAINER ID]` - 컨테이너를 중지시킴(ps로 컨테이너 아이디 확인 가능)<br/>
 `docker rm [CONTAINER ID]` - 중지된 컨테이너 삭제<br/>
+`docker run -d -p 8080:80 httpd` - httpd 컨테이너를 데몬으로 실행하고 외부에서 8080포트로 들어오면 내부 80포트로 포트포워딩 해줌
+<br/>
+
+### tomcat 컨테이너 실행
+1. `docker pull tomcat` 톰캣 이미지를 받아옴
+2. `docker run -d tomcat` 톰캣 컨테이너를 실행시킴(-d는 백그라운드 즉 데몬으로 실행 시키는 옵션)
+
+tomcat 컨테이너를 8080포트로 실행 시켜도 localhost:8080로 접근해보면 안 뜬다.<br/>
+이유는 웹 브라우저는 호스트 운영체제에 8080포트를 접근하기 때문이다.<br/>
+그래서 호스트 운영체제에서 8080포트로 띄워진 tomcat 컨테이너로 포트포워딩을 해줘야 된다.<br/>
+
+### 컨테이너 포트포워딩
+1. `docker run -d -p 8080:80 httpd` 외부에서 8080포트로 들어오면 내부에 80포트인 httpd 연결
+2. `docker run -d -p 8081:80 nginx` 외부에서 8081포트로 들어오면 내부에 80포트인 nginx 연결
