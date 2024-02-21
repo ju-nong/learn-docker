@@ -55,10 +55,15 @@ tomcat 컨테이너를 8080포트로 실행 시켜도 localhost:8080로 접근�
 2. `docker run -d -p 8081:80 nginx` 외부에서 8081포트로 들어오면 내부에 80포트인 nginx 연결
 <br/>
 
-### ubuntu 컨테이너 실행 및 접근
+### 운영체제 컨테이너 실행 및 접근
 `docker run --name myubuntu ubuntu` myubuntu라는 이름으로 ubuntu를 실행 시켜준다.<br/>
 하지만 OS에 해당하는 ubuntu는 tomcat이나 nginx 같은 데몬 프로세스가 없기 때문에, 일반적인 실행 명령어를 사용할 경우 컨테이너가 중지된다<br/><br/>
 
 실행 명령어에 인터렉션 한다는 i와 터미널 모드로 실행하겠다는 t를 붙여주면 된다.<br/>
 `docker run -dit --name myubuntu ubuntu`<br/>
-실행된 ubuntu에 접근하는 방법은 `docker attach [CONTAINER ID]`
+실행된 ubuntu에 접근하는 방법은 `docker attach [CONTAINER ID]`<br/>
+
+
+### 프로세스 컨테이너 실행 및 접근
+`docker run -d -p 8080:80 httpd`로 실행 시켜준다.<br/>
+`docker exec -it [CONTAINER ID] bash` bash 명령어로 접근한다.<br/>
