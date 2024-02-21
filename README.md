@@ -38,8 +38,9 @@ Docker Desktop 설치하면 자동으로 설치 된다는 썰이 있다, 나중�
 `docker pull ubuntu:18.04` - 이미지를 18.04 버전으로 pull 받음<br/>
 `docker rmi openjdk` - 이미지를 삭제함(이미지명 말고 IMAGE ID로도 삭제 가능함)<br/>
 `docker stop [CONTAINER ID]` - 컨테이너를 중지시킴(ps로 컨테이너 아이디 확인 가능)<br/>
+`docker start [CONTAINER ID]` - 중지된 컨테이너 실행<br/>
 `docker rm [CONTAINER ID]` - 중지된 컨테이너 삭제<br/>
-`docker run -d -p 8080:80 httpd` - httpd 컨테이너를 데몬으로 실행하고 외부에서 8080포트로 들어오면 내부 80포트로 포트포워딩 해줌
+`docker run -d -p 8080:80 httpd` - httpd 컨테이너를 데몬으로 실행하고 외부에서 8080포트로 들어오면 내부 80포트로 포트포워딩 해줌<br/>
 <br/>
 
 ### tomcat 컨테이너 실행
@@ -49,6 +50,7 @@ Docker Desktop 설치하면 자동으로 설치 된다는 썰이 있다, 나중�
 tomcat 컨테이너를 8080포트로 실행 시켜도 localhost:8080로 접근해보면 안 뜬다.<br/>
 이유는 웹 브라우저는 호스트 운영체제에 8080포트를 접근하기 때문이다.<br/>
 그래서 호스트 운영체제에서 8080포트로 띄워진 tomcat 컨테이너로 포트포워딩을 해줘야 된다.<br/>
+<br/>
 
 ### 컨테이너 포트포워딩
 1. `docker run -d -p 8080:80 httpd` 외부에서 8080포트로 들어오면 내부에 80포트인 httpd 연결
@@ -62,8 +64,32 @@ tomcat 컨테이너를 8080포트로 실행 시켜도 localhost:8080로 접근�
 실행 명령어에 인터렉션 한다는 i와 터미널 모드로 실행하겠다는 t를 붙여주면 된다.<br/>
 `docker run -dit --name myubuntu ubuntu`<br/>
 실행된 ubuntu에 접근하는 방법은 `docker attach [CONTAINER ID]`<br/>
-
+<br/>
 
 ### 프로세스 컨테이너 실행 및 접근
 `docker run -d -p 8080:80 httpd`로 실행 시켜준다.<br/>
 `docker exec -it [CONTAINER ID] bash` bash 명령어로 접근한다.<br/>
+<br/>
+
+### Volume 옵션
+호스트의 파일 또는 폴더를 컨테이너내의 파일 시스템과 공유할 수 있는 옵션이다.<br/>
+명령어 원문 - `docker run -d -p 8080:80 -v [HOST DIR PATH]:[CONTAINER DIR PATH] httpd`<br/>
+ex) `docker run -d -p 8080:80 -v C:\Users\gnew\Desktop\docker\webapp:/usr/local/apache2/htdocs httpd`<br/>
+<br/>
+
+### ubuntu 컨테이너에서 vi 설치 및 터미널 나가기
+1. `docker run -dit ubuntu` - ubuntu 설치 및 실행
+2. `docker attach [CONTAINER ID]` - ubuntu 접속
+3. `apt update` - ubuntu 프로그램 업데이터
+4. `apt install vi` - vi 설치
+5. `Ctrl` + `p` + `q` - ubuntu 나오기
+<br/>
+
+### 레포지토리 만들기 및 이미지 굽기
+Git이랑 비슷하다
+
+1. Docker hub에 접속해서 Create Repository
+2. `docker commit [CONTAINER ID] [MY ID/REPOSITORY NAME]:1.0` - 실행 중인 컨테이너 아이디와 커밋할 내 아이디 및 레포지토리명을 입력하고 버전(TAG)을 적어준다
+3. `docker images` - 이미지 생성 확인
+4. `docker push [MY ID/REPOSITORY NAME]:1.0` - 푸시
+6. `docker pull [MY ID/REPOSITORY NAME]:1.0` - 풀
