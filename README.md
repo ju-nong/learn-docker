@@ -93,3 +93,7 @@ Git이랑 비슷하다
 3. `docker images` - 이미지 생성 확인
 4. `docker push [MY ID/REPOSITORY NAME]:1.0` - 푸시
 6. `docker pull [MY ID/REPOSITORY NAME]:1.0` - 풀
+<br/>
+
+### Docker File
+도커 이미지를 작성할 때 스크립트 짜는 것을 Docker File이라고 부른다.
