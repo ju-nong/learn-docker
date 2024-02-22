@@ -133,4 +133,4 @@ ENTRYPOINT ["java", "-jar", "-Dspring.profiles.active=dev", "application.jar"]
 CMD ["--server.port=3000"]
 ```
 
-`docker build -t [생성할 이미지명] [Dockerfile 경로] [CMD 명령어]` - Dockerfile를 실행
+`docker build -t [생성할 이미지명] [Dockerfile 경로]` - Dockerfile를 실행
